@@ -17,9 +17,19 @@ SW_HIDE = 0
 SW_MINIMIZE = 6
 
 def get_app_root():
-    """Get application root directory"""
-    # This script is in app/ folder, so go up one level
-    return Path(__file__).parent.parent
+    """Get application root directory for both dev and packaged layouts."""
+    script_dir = Path(__file__).resolve().parent
+
+    # Development layout: main.py lives at project root.
+    if (script_dir / "src").exists() and (script_dir / "Data").exists():
+        return script_dir
+
+    # Packaged layout: main.py may live in app/ under root.
+    if (script_dir.parent / "Data").exists() and (script_dir.parent / "Models").exists():
+        return script_dir.parent
+
+    # Safe fallback keeps behavior predictable.
+    return script_dir
 
 def print_step(step_num, msg):
     """Print formatted step message"""
@@ -211,7 +221,8 @@ def launch_streamlit():
     print_step(4, "Launching Application")
     
     app_root = get_app_root()
-    python_exe = app_root / "python" / "python.exe"
+    bundled_python = app_root / "python" / "python.exe"
+    python_exe = bundled_python if bundled_python.exists() else Path(sys.executable)
     
     # Determine which app to run (default: user_app.py, or admin_app.py if --admin)
     app_name = "admin_app.py" if "--admin" in sys.argv else "user_app.py"
@@ -231,6 +242,7 @@ def launch_streamlit():
     ]
     
     print(f"Starting Streamlit server ({app_name})...")
+    print(f"Using Python: {python_exe}")
     
     # Don't hide console - let user see output
     process = subprocess.Popen(
