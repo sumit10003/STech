@@ -59,12 +59,8 @@ def check_ollama_installed():
         return True
     else:
         print("[FAIL] Ollama not found in PATH")
-        print("\nPlease ensure Ollama is installed and in your PATH")
-        print("\nTo install Ollama:")
-        print("  1. Download from: https://ollama.ai")
-        print("  2. Run the installer")
-        print("  3. Restart your computer or terminal")
-        print("  4. Run this application again")
+        print("\nOffline mode requires a preinstalled local Ollama runtime.")
+        print("Please ensure Ollama is installed and available in PATH.")
         return False
 
 def start_ollama_service():
@@ -167,8 +163,8 @@ def check_model_available():
                 print(result.stdout)
             else:
                 print("  (no models listed)")
-            print("\nTo install the model, run:")
-            print("  ollama pull llama3.1:8b")
+            print("\nOffline mode does not auto-download models.")
+            print("Please import llama3.1:8b into local Ollama before launch.")
             return False
     except subprocess.TimeoutExpired:
         print("[FAIL] ollama list command timed out (10 seconds)")
