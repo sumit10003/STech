@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+
+# Runtime/cache/logs
+*.log
+.streamlit/
+
+# Large/local runtime artifacts
+Data/
+Models/
+build/
+dist/
+DVD2_Application/
+EmbeddedBuild/
+
+# Binary outputs
+*.exe
+*.dll
+*.pyd
+*.whl
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,16 @@
+# Pin exact versions for offline installation
+# All packages and dependencies available in dependencies/ folder
+langchain==1.2.9
+langchain-core==1.2.9
+langchain-community==0.4.1
+langchain-ollama==1.0.1
+langchain-text-splitters==1.1.0
+langgraph==1.0.8
+pypdf==6.7.0
+pymupdf==1.26.7
+sentence-transformers==5.2.2
+faiss-cpu==1.13.2
+python-dotenv==1.2.1
+streamlit==1.54.0
+psutil==7.2.2
+requests==2.32.5
