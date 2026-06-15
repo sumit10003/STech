@@ -24,8 +24,8 @@ class EmbeddingPipeline:
 
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
-        # SentenceTransformer accepts a local directory path; use that for offline
-        self.model = SentenceTransformer(model_name)
+        # Force local-only model resolution in offline deployments.
+        self.model = SentenceTransformer(model_name, local_files_only=True)
         print(f"[INFO] Loaded embedding model: {model_name}")
 
     def chunk_documents(self, documents: List[Any]) -> List[Any]:

@@ -34,7 +34,7 @@ class FaissVectorStore:
         self.document_metadata = {}  # Track document-level metadata
         self.embedding_model = embedding_model
         # Use device='cpu' to avoid meta tensor issues with torch
-        self.model = SentenceTransformer(embedding_model, device='cpu')
+        self.model = SentenceTransformer(embedding_model, device='cpu', local_files_only=True)
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         print(f"[INFO] Loaded embedding model: {embedding_model}")

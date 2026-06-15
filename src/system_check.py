@@ -133,7 +133,7 @@ class SystemChecker:
             pass
         
         self.issues.append(
-            "Ollama not found. Download from https://ollama.com/download"
+            "Ollama not found in PATH. Offline mode requires a preinstalled local Ollama runtime."
         )
         return False
     
@@ -154,7 +154,8 @@ class SystemChecker:
         
         self.warnings.append(
             f"Ollama model '{model_name}' not downloaded yet. "
-            f"Will download on first run (large file, may take time)"
+            "Offline mode will not download models automatically. "
+            "Please import the model locally before launching."
         )
         return False
     
@@ -163,7 +164,7 @@ class SystemChecker:
         if config:
             embedding_path = config.EMBEDDING_MODEL
         else:
-            embedding_path = os.path.join("Models", "all-MiniLM-L6-v2")
+            embedding_path = os.path.join("Models", "all-mpnet-base-v2")
         
         if os.path.exists(embedding_path):
             self.info.append(f"✓ Embedding model found: {embedding_path}")

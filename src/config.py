@@ -41,6 +41,7 @@ MODELS_DIR = os.path.join(APP_ROOT, "Models")
 # Sentence Transformer Model - relative path
 # Model folder structure: Models/all-mpnet-base-v2/
 EMBEDDING_MODEL = os.path.join(MODELS_DIR, "all-mpnet-base-v2")
+print(f"[CONFIG] Embedding model path: {EMBEDDING_MODEL}")
 #direct path to Embedding model (can be local path or Hugging Face repo)
 #EMBEDDING_MODEL = r"C:\STech\Models\all-mpnet-base-v2"
 

@@ -86,7 +86,7 @@ class OllamaServiceManager:
         if not self.check_ollama_installed():
             error_msg = (
                 "Ollama is not installed. "
-                "Please download from https://ollama.com/download"
+                "Offline mode requires a preinstalled local Ollama runtime."
             )
             self.log(error_msg, "error")
             return False, error_msg
@@ -183,29 +183,15 @@ class OllamaServiceManager:
                 self.log(f"Model '{model_name}' is available", "success")
                 return True, f"Model {model_name} available"
             
-            # Model not available, pull it
-            self.log(
-                f"Model '{model_name}' not found. Downloading... (this may take 5-10 minutes)",
-                "info"
+            error_msg = (
+                f"Model '{model_name}' not found in local Ollama store. "
+                "Offline mode does not download models automatically."
             )
-            
-            result = subprocess.run(
-                [self.ollama_exe, "pull", model_name],
-                capture_output=True,
-                text=True,
-                timeout=900  # 15 minutes timeout
-            )
-            
-            if result.returncode == 0:
-                self.log(f"Model '{model_name}' downloaded successfully", "success")
-                return True, f"Model {model_name} downloaded"
-            else:
-                error_msg = f"Failed to download model: {result.stderr}"
-                self.log(error_msg, "error")
-                return False, error_msg
+            self.log(error_msg, "error")
+            return False, error_msg
         
         except subprocess.TimeoutExpired:
-            error_msg = f"Model download timeout. Please try again later."
+            error_msg = "Timed out while checking local model availability."
             self.log(error_msg, "error")
             return False, error_msg
         except Exception as e:
